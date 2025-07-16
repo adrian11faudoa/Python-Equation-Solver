@@ -78,26 +78,83 @@ Example Code:
 ```
 It takes three arguments: the regex pattern to match, the replacement, and the string on which you want to perform the replacement.
 
-Step 35
+
+In a regex pattern, a lookaround is an assertion that matches a certain pattern without consuming characters in the string. 
+One kind of lookaround is the lookbehind, which can be either positive or negative. 
+They are denoted by (?<=...) and (?<!...), respectively.
+Example Code:
+```
+    spam = 'black back bat'
+    re.sub('(?<=l)a', 'o', spam) == 'block back bat' # True
+    re.sub('(?<!l)a', 'o', spam) == 'black bock bot' # True
+```
+In the example above, the pattern (?<=l)a contains a positive lookbehind, which is used to match the a character only when preceded by an l. 
+In the last line of the example, the pattern (?<!l)a contains a negative lookbehind, which is used to match the a character only if it is not preceded by an l. 
+Note how, in both cases, the character contained in the lookbehind is not consumed.
+Example Code:
+```
+    re.sub(r'(?<!\d)1', '', equation_string.strip('+'))
+```
 
 
+Another kind of lookaround assertion is the lookahead.
+Positive and negative lookahead are denoted by (?=...) and (?!...), respectively. 
+They are used to match a pattern if followed by a certain sequence of characters, which is not consumed:
+Example Code:
+```
+    spam = 'black back bat'
+    re.sub('a(?=t)', 'o', spam) == 'black back bot' # True
+    re.sub('a(?!t)', 'o', spam) == 'block bock bat' # True
+```
+In the example above, the pattern a(?=t) contains a positive lookahead, which is used to match the a character only when followed by a t. 
+In the last line of the example, the pattern a(?!t) contains a negative lookahead, which is used to match the a character only if not followed by a t. 
+Again, in both cases, the character contained in the lookahead is not consumed.
+Example Code:
+```
+    re.sub(r'(?<!\d)1(?=x)', '', equation_string.strip('+'))
+```
 
 
+An interesting feature of f-strings is the capability of forcing the output to be right/left-aligned, or centered.
+After the expression to be evaluated is inside the curly braces, you need to write a colon followed by an alignment option (< to left-align, > to right-align, ^ to center) and a number representing the width, that is the number of characters in which you want to arrange the text.
+Example Code:
+```
+    f'{"Hello World":>20}'
+```
+Printing the string from the example above would result in right-aligned text arranged in a space of 20 characters.
 
 
+Between the colon and the alignment option, you can specify a fill character, which will be used to fill the space around the text within the specified width.
 
 
+Another feature of f-strings enables you to convert the content of the replacement field (the curly braces) into a string by using a ! followed by the conversion type s. 
+For example, f'{obj!s}' converts obj into a string and it is equivalent to f'{str(obj)}'.
 
 
+Structural pattern matching is a Python construct that enables matching a pattern with a subject value, which is specified after the match keyword:
+Example Code:
+```
+    match value:
+        case x:
+            <code>
+        case y:
+            <code>
+```
+Each pattern is specified after the case statement. 
+If the match is positive, the code inside the case block is run.
 
 
+f-strings also enable you to set a specific precision to your numerical data by using the .nf format specifier, where n is the number of decimal digits to display.
 
 
-
-
-
-
-
-
-
+The structural pattern matching enables you to verify that the subject has a specific structure. 
+In addition to that, it binds names in the pattern to elements of the subject.
+Example Code:
+```
+    match my_list:
+        case [a]:
+            print(a)
+        case [a, b]:
+            print(a, b)
+```
 
