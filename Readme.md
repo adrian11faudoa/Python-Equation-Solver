@@ -145,6 +145,10 @@ If the match is positive, the code inside the case block is run.
 
 
 f-strings also enable you to set a specific precision to your numerical data by using the .nf format specifier, where n is the number of decimal digits to display.
+Example Code:
+```
+    points = f"x: {x}, y: {y:.2f}"
+```
 
 
 The structural pattern matching enables you to verify that the subject has a specific structure. 
